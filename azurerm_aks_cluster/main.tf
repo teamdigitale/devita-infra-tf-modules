@@ -88,14 +88,13 @@ resource "azurerm_kubernetes_cluster" "azurerm_kubernetes_cluster" {
     }
   }
 
-  agent_pool_profile {
+  default_node_pool {
     name                = "${local.azurerm_kubernetes_cluster_agent_pool_profile_name}"
     type                = "VirtualMachineScaleSets"
-    count               = "${var.azurerm_kubernetes_cluster_agent_pool_profile_min_count}"
+    node_count          = "${var.azurerm_kubernetes_cluster_agent_pool_profile_min_count}"
     min_count           = "${var.azurerm_kubernetes_cluster_agent_pool_profile_min_count}"
     max_count           = "${var.azurerm_kubernetes_cluster_agent_pool_profile_max_count}"
     enable_auto_scaling = true
-    os_type             = "Linux"
     vm_size             = "${var.azurerm_kubernetes_cluster_agent_pool_profile_vm_size}"
     max_pods            = "${var.azurerm_kubernetes_cluster_agent_pool_profile_max_pods}"
     vnet_subnet_id      = "${data.azurerm_subnet.aks_subnet.id}"
@@ -118,6 +117,7 @@ resource "azurerm_kubernetes_cluster" "azurerm_kubernetes_cluster" {
     service_cidr       = "${var.azurerm_kubernetes_cluster_network_profile_service_cidr}"
     dns_service_ip     = "${var.azurerm_kubernetes_cluster_network_profile_dns_service_ip}"
     docker_bridge_cidr = "${var.azurerm_kubernetes_cluster_network_profile_docker_bridge_cidr}"
+    load_balancer_sku  = "Standard"
   }
 
   role_based_access_control {
