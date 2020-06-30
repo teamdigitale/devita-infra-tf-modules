@@ -16,7 +16,7 @@ variable "azurerm_storage_account_name_suffix" {
   description = "The suffix used to identify the specific Azure storage account"
 }
 
-variable "azurerm_storage_container_name" {
+variable "azurerm_storage_container_name_suffix" {
   description = "The storage container name"
 }
 
@@ -32,5 +32,5 @@ locals {
   # {azurerm_resource   _name_prefix}-RESOURCE_TYPE-{environment}
   azurerm_resource_group_name    = "${var.resource_name_prefix}-${var.environment}-rg"
   azurerm_storage_account_name   = "${local.storage_account_resource_name_prefix}${var.environment}sa${var.azurerm_storage_account_name_suffix}"
-  azurerm_storage_container_name = "${var.resource_name_prefix}-${var.environment}-sc-${var.azurerm_storage_container_name}"
+  azurerm_storage_container_name = "${var.resource_name_prefix}-${var.environment}-sc-${var.azurerm_storage_container_name_suffix}"
 }
